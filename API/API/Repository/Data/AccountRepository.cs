@@ -22,7 +22,7 @@ namespace API.Repository.Data
             var alternatif = context.Accounts.Find(loginVM.NIK);
             if (alternatif != null)
             {
-                var test = context.Accounts.SingleOrDefault(a => a.NIK == loginVM.NIK && a.Password == loginVM.Password);
+                var test = context.Accounts.FirstOrDefault(a => a.NIK == loginVM.NIK && a.Password == loginVM.Password);
                 if (test != null)
                 {
                     return 1;
@@ -34,9 +34,9 @@ namespace API.Repository.Data
             }
             else
             {
-                var cekPass = context.Accounts.SingleOrDefault(a => a.Password == loginVM.Password);
+                var cekPass = context.Accounts.FirstOrDefault(a => a.Password == loginVM.Password);
                 var cekNIK = context.Employees.Find(cekPass.NIK);
-                var cekEmail = context.Employees.SingleOrDefault(a => a.NIK == cekNIK.NIK && a.Email == loginVM.NIK);
+                var cekEmail = context.Employees.FirstOrDefault(a => a.NIK == cekNIK.NIK && a.Email == loginVM.NIK);
                 if (cekEmail != null)
                 {
                     return 1;
