@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bonifasius\\Documents\\Metrodata Training\\Tugas\\API\\API\\API.csproj": {}
+    "C:\\Users\\Bonifasius\\Documents\\GitHub\\API-bootcamp52\\API\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bonifasius\\Documents\\Metrodata Training\\Tugas\\API\\API\\API.csproj": {
+    "C:\\Users\\Bonifasius\\Documents\\GitHub\\API-bootcamp52\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bonifasius\\Documents\\Metrodata Training\\Tugas\\API\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Bonifasius\\Documents\\GitHub\\API-bootcamp52\\API\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Bonifasius\\Documents\\Metrodata Training\\Tugas\\API\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Bonifasius\\Documents\\GitHub\\API-bootcamp52\\API\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Bonifasius\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bonifasius\\Documents\\Metrodata Training\\Tugas\\API\\API\\obj\\",
+        "outputPath": "C:\\Users\\Bonifasius\\Documents\\GitHub\\API-bootcamp52\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
