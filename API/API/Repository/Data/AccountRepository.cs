@@ -34,9 +34,9 @@ namespace API.Repository.Data
             }
             else
             {
-                var cekPass = context.Accounts.FirstOrDefault(a => a.Password == loginVM.Password);
-                var cekNIK = context.Employees.Find(cekPass.NIK);
-                var cekEmail = context.Employees.FirstOrDefault(a => a.NIK == cekNIK.NIK && a.Email == loginVM.NIK);
+                var cekEmail = context.Employees.FirstOrDefault(a => a.Email == loginVM.NIK);
+                var cekNIK = context.Employees.Find(cekEmail.NIK);
+                var cekPass = context.Accounts.FirstOrDefault(a =>a.NIK == cekNIK.NIK && a.Password == loginVM.Password);
                 if (cekEmail != null)
                 {
                     return 1;
