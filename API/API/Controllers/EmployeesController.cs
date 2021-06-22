@@ -29,7 +29,7 @@ namespace API.Controllers
             try
             {
                 var insert = employeeRepository.Register(registerVM);
-                if (insert == 3)
+                if (insert > 2)
                 {
                     return Ok(new { status = HttpStatusCode.OK, result = insert, message = "Berhasil Insert" });
                 }
@@ -37,7 +37,7 @@ namespace API.Controllers
                 {
                     return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Email sudah terdafftar" });
                 }
-                else if (insert == 4)
+                else if (insert == 1)
                 {
                     return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "NIK sudah terdafftar" });
                 }
