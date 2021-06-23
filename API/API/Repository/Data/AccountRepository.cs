@@ -49,56 +49,56 @@ namespace API.Repository.Data
 
         public int ResetPassword(ResetPasswordVM resetPasswordVM)
         {
-                Guid guid = Guid.NewGuid();
-                string emailGuid = guid.ToString("N");
+            Guid guid = Guid.NewGuid();
+            string emailGuid = guid.ToString("N");
 
-                var account = new Account();
+            var account = new Account();
 
-                var email = context.Employees.FirstOrDefault(a => a.Email == resetPasswordVM.Email);
-                if (email != null)
+            var email = context.Employees.FirstOrDefault(a => a.Email == resetPasswordVM.Email);
+            if (email != null)
+            {
+                account.NIK = email.NIK;
+                account.Password = emailGuid;
+                context.Entry(account).State = EntityState.Modified;
+                var insert = context.SaveChanges();
+
+                if (insert > 0)
                 {
-                    account.NIK = email.NIK;
-                    account.Password = emailGuid;
-                    context.Entry(account).State = EntityState.Modified;
-                    var insert = context.SaveChanges();
+                    var fromAddress = new MailAddress("henrisuni05@gmail.com", "From API");
+                    var toAddress = new MailAddress(resetPasswordVM.Email, $"To {resetPasswordVM.Email}");
+                    string fromPassword = "******";
+                    string subject = "Reset Password";
+                    string body = "Hello " + email.FirstName + System.Environment.NewLine + "Ini password baru anda : " + emailGuid;
 
-                    if (insert > 0)
+                    var smtp = new SmtpClient
                     {
-                        var fromAddress = new MailAddress("henrisuni05@gmail.com", "From API");
-                        var toAddress = new MailAddress(resetPasswordVM.Email, $"To {resetPasswordVM.Email}");
-                        string fromPassword = "*******";
-                        string subject = "Reset Password";
-                        string body = "Ini password baru anda : " + emailGuid;
-
-                        var smtp = new SmtpClient
-                        {
-                            Host = "smtp.gmail.com",
-                            Port = 587,
-                            EnableSsl = true,
-                            DeliveryMethod = SmtpDeliveryMethod.Network,
-                            UseDefaultCredentials = false,
-                            Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-                        };
-                        using (var message = new MailMessage(fromAddress, toAddress)
-                        {
-                            Subject = subject,
-                            Body = body
-                        })
-                        {
-                            smtp.Send(message);
-                        }
-                        return insert;
-
-                    }
-                    else
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                    };
+                    using (var message = new MailMessage(fromAddress, toAddress)
                     {
-                        return 0;
+                        Subject = subject,
+                        Body = body
+                    })
+                    {
+                        smtp.Send(message);
                     }
+                    return insert;
+
                 }
                 else
                 {
                     return 0;
                 }
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public int ChangePassword(ChangePasswordVM changePasswordVM)
