@@ -24,12 +24,10 @@ namespace API.Repository.Data
                 var account = context.Accounts.FirstOrDefault(a => a.NIK == loginVM.NIK);
                 if (account != null && Hashing.ValidatePassword(loginVM.Password, account.Password))
                 {
-                    // authentication failed
                     return 1;
                 }
                 else
                 {
-                    // authentication successful
                     return 0;
                 }
             }
@@ -39,12 +37,10 @@ namespace API.Repository.Data
                 var account = context.Accounts.Find(cekEmail.NIK);
                 if (account != null && Hashing.ValidatePassword(loginVM.Password, account.Password))
                 {
-                    // authentication failed
                     return 1;
                 }
                 else
                 {
-                    // authentication successful
                     return 0;
                 }
             }
