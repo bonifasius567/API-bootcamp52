@@ -18,31 +18,33 @@ namespace API.Repository.Data
         public int Login(LoginVM loginVM)
         {
             var employee = new Employee();
-            var account = new Account();
             var alternatif = context.Accounts.Find(loginVM.NIK);
             if (alternatif != null)
             {
-                var test = context.Accounts.FirstOrDefault(a => a.NIK == loginVM.NIK && a.Password == loginVM.Password);
-                if (test != null)
+                var account = context.Accounts.FirstOrDefault(a => a.NIK == loginVM.NIK);
+                if (account != null && Hashing.ValidatePassword(loginVM.Password, account.Password))
                 {
+                    // authentication failed
                     return 1;
                 }
                 else
                 {
+                    // authentication successful
                     return 0;
                 }
             }
             else
             {
                 var cekEmail = context.Employees.FirstOrDefault(a => a.Email == loginVM.NIK);
-                var cekNIK = context.Employees.Find(cekEmail.NIK);
-                var cekPass = context.Accounts.FirstOrDefault(a =>a.NIK == cekNIK.NIK && a.Password == loginVM.Password);
-                if (cekEmail != null)
+                var account = context.Accounts.Find(cekEmail.NIK);
+                if (account != null && Hashing.ValidatePassword(loginVM.Password, account.Password))
                 {
+                    // authentication failed
                     return 1;
                 }
                 else
                 {
+                    // authentication successful
                     return 0;
                 }
             }
