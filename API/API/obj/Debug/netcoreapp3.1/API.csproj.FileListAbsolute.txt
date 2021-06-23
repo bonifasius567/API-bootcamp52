@@ -134,3 +134,4 @@ C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\API\obj\Debug\netcoreapp
 C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\API\obj\Debug\netcoreapp3.1\API.dll
 C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\API\obj\Debug\netcoreapp3.1\API.pdb
 C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\API\obj\Debug\netcoreapp3.1\API.genruntimeconfig.cache
+C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\API\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
