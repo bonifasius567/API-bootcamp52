@@ -52,5 +52,43 @@ namespace API.Controllers
                 });
             }
         }
+
+        [HttpPost("Reset")]
+        public ActionResult Reset(ResetPasswordVM resetPasswordVM)
+        {
+            var insert = accountRepository.ResetPassword(resetPasswordVM);
+            if (insert == 1)
+            {
+                return Ok(new { status = HttpStatusCode.OK, result = insert, message = "Password Baru telah di kirim" });
+            }
+            else
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    result = insert,
+                    message = "reset password gagal"
+                });
+            }
+        }
+
+        [HttpPost("Change")]
+        public ActionResult Change(ChangePasswordVM changePasswordVM)
+        {
+            var insert = accountRepository.ChangePassword(changePasswordVM);
+            if (insert == 1)
+            {
+                return Ok(new { status = HttpStatusCode.OK, result = insert, message = "Password berhasil di perbarui" });
+            }
+            else
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    result = insert,
+                    message = "Pembaruan Password gagal"
+                });
+            }
+        }
     }
 }
