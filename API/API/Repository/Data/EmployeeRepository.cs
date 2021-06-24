@@ -42,11 +42,6 @@ namespace API.Repository.Data
                     account.NIK = registerVM.NIK;
                     account.Password = Hashing.HashPassword(registerVM.Password);
 
-                    //education.Degree = registerVM.Degree;
-                    //education.GPA = registerVM.GPA;
-                    //education.UniversityId = registerVM.UniversityId;
-                    //myContext.Educations.Add(education);
-
                     var edu = myContext.Educations.FirstOrDefault
                         (b => b.Degree == registerVM.Degree && b.GPA == registerVM.GPA && b.UniversityId == registerVM.UniversityId);
                     int eduid = edu.Id;
