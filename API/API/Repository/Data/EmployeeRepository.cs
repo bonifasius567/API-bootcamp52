@@ -36,6 +36,7 @@ namespace API.Repository.Data
                     employee.Email = registerVM.Email;
                     employee.BirthDate = registerVM.BirthDate;
                     employee.Salary = registerVM.Salary;
+                    employee.PhoneNumber = registerVM.PhoneNumber;
                     employee.Gender = (Models.Gender)registerVM.Gender;
 
                     account.NIK = registerVM.NIK;
@@ -70,5 +71,54 @@ namespace API.Repository.Data
             }
         }
 
+        public IQueryable ViewRegistrasi(string nik)
+        {
+            var employee = myContext.Employees.FirstOrDefault(e => e.NIK == nik);
+            if (employee != null)
+            {
+                var data =
+                    from em in myContext.Employees
+                    join ac in myContext.Accounts on em.NIK equals ac.NIK
+                    join pr in myContext.Profilings on ac.NIK equals pr.NIK
+                    join ed in myContext.Educations on pr.EducationId equals ed.Id
+                    join un in myContext.Universities on ed.UniversityId equals un.Id
+                    where em.NIK == nik 
+                    select new 
+                    {
+                        em.NIK, em.FirstName, em.LastName, em.Email, em.Gender,em.Salary, em.BirthDate, em.PhoneNumber,
+                        ac.Password, ed.Degree, ed.GPA, un.Name
+                    } ;
+                return data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IQueryable ViewRegistrasi()
+        {
+            var data = (from em in myContext.Employees
+                        join ac in myContext.Accounts on em.NIK equals ac.NIK
+                        join pr in myContext.Profilings on ac.NIK equals pr.NIK
+                        join ed in myContext.Educations on pr.EducationId equals ed.Id
+                        join un in myContext.Universities on ed.UniversityId equals un.Id
+                        select new
+                        {
+                            em.NIK,
+                            em.FirstName,
+                            em.LastName,
+                            em.Email,
+                            em.Gender,
+                            em.Salary,
+                            em.BirthDate,
+                            em.PhoneNumber,
+                            ac.Password,
+                            ed.Degree,
+                            ed.GPA,
+                            un.Name
+                        });
+            return data;
+        }
     }
 }

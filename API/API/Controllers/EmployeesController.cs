@@ -51,5 +51,47 @@ namespace API.Controllers
                 return BadRequest(new { status = HttpStatusCode.OK, result = 0, message = "Insert gagal" });
             }
         }
+
+        [HttpGet("ViewRegistrasi/{nik}")]
+        public ActionResult ViewRegistrasi(string nik)
+        {
+            try
+            {
+                var insert = employeeRepository.ViewRegistrasi(nik);
+                if (insert != null)
+                {
+                    return Ok(new { status = HttpStatusCode.OK, result = insert, message = "Data Registrsi Ditemukan" });
+                }
+                else
+                {
+                    return BadRequest(new { status = HttpStatusCode.BadRequest, result = insert, message = "Data Registrasi tidak ditemukan" });
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { status = HttpStatusCode.OK, result = 0, message = "Data Registrasi tidak ditemukan" });
+            }
+        }
+
+        [HttpGet("ViewRegistrasi")]
+        public ActionResult ViewRegistrasi()
+        {
+            try
+            {
+                var view = employeeRepository.ViewRegistrasi();
+                if (view != null)
+                {
+                    return Ok(new { status = HttpStatusCode.OK, result = view, message = "Data Registrsi Ditemukan" });
+                }
+                else
+                {
+                    return BadRequest(new { status = HttpStatusCode.BadRequest, result = view, message = "Data Registrasi tidak ditemukan" });
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { status = HttpStatusCode.OK, result = 0, message = "Data Registrasi tidak ditemukan" });
+            }
+        }
     }
 }
