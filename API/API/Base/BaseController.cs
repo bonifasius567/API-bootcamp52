@@ -23,8 +23,15 @@ namespace API.Base
 
         public ActionResult Get()
         {
-            var get = repository.Get();
-            return Ok(new { status = HttpStatusCode.OK, result = get, message = "Data ditemukan" });
+            var get = repository.Get(); 
+            if (get != null)
+            {
+                return Ok(new { status = HttpStatusCode.OK, result = get, message = "Data ditemukan" });
+            }
+            else
+            {
+                return BadRequest(new { status = HttpStatusCode.BadRequest, result = get, message = "Data tidak ditemukan" });
+            }
         }
 
         [HttpGet("{key}")]

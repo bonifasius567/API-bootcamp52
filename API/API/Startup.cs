@@ -37,6 +37,8 @@ namespace API
             services.AddScoped<AccountRepository>();
             services.AddScoped<EducationRepository>();
             services.AddScoped<ProfilingRepository>();
+            services.AddScoped<AccountRoleRepository>();
+            services.AddScoped<RoleRepository>();
             services.AddScoped<UniversityRepository>();
         }
 

@@ -24,6 +24,7 @@ namespace API.Repository.Data
             var account = new Account();
             var profiling = new Profiling();
             var education = new Education();
+            var role = new AccountRole();
 
             var cekNIK = myContext.Employees.Find(registerVM.NIK);
             if (cekNIK == null)
@@ -50,6 +51,10 @@ namespace API.Repository.Data
                     profiling.NIK = registerVM.NIK;
                     profiling.EducationId = eduid;
 
+                    role.RoleID = 2;
+                    role.AccountId = registerVM.NIK;
+
+                    myContext.AccountRoles.Add(role);
                     myContext.Employees.Add(employee);
                     myContext.Accounts.Add(account);
                     myContext.Profilings.Add(profiling);

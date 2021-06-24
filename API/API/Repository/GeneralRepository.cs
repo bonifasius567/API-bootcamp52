@@ -37,7 +37,8 @@ namespace API.Repository
 
         public IEnumerable<Entity> Get()
         {
-            return entities.ToList();
+            var find = entities.ToList();
+            return find;
         }
 
         public Entity Get(Key key)
