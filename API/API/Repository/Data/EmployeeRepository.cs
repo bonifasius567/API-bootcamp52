@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using System.Collections;
 
 namespace API.Repository.Data
 {
@@ -81,7 +82,7 @@ namespace API.Repository.Data
                     select new 
                     {
                         em.NIK, em.FirstName, em.LastName, em.Email, em.Gender,em.Salary, em.BirthDate, em.PhoneNumber,
-                        ac.Password, ed.Degree, ed.GPA, un.Name
+                        ed.Degree, ed.GPA, un.Name
                     } ;
                 return data;
             }
@@ -91,7 +92,7 @@ namespace API.Repository.Data
             }
         }
 
-        public IQueryable ViewRegistrasi()
+        public ICollection ViewRegistrasi()
         {
             var data = (from em in myContext.Employees
                         join ac in myContext.Accounts on em.NIK equals ac.NIK
@@ -108,11 +109,10 @@ namespace API.Repository.Data
                             em.Salary,
                             em.BirthDate,
                             em.PhoneNumber,
-                            ac.Password,
                             ed.Degree,
                             ed.GPA,
                             un.Name
-                        });
+                        }).ToList();
             return data;
         }
     }
