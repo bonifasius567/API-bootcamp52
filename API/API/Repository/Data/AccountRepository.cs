@@ -18,7 +18,6 @@ namespace API.Repository.Data
         }
         public int Login(LoginVM loginVM)
         {
-            var employee = new Employee();
             var alternatif = context.Accounts.Find(loginVM.NIK);
             if (alternatif != null)
             {
