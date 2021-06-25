@@ -25,6 +25,7 @@ namespace API.Controllers
             this.employeeRepository = repository;
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public ActionResult Register(RegisterVM registerVM)
         {

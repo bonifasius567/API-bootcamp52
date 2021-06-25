@@ -87,7 +87,7 @@ namespace API.Repository.Data
                     select new 
                     {
                         em.NIK, em.FirstName, em.LastName, em.Email, em.Gender,em.Salary, em.BirthDate, em.PhoneNumber,
-                        ed.Degree, ed.GPA, un.Name
+                        ed.Degree, ed.GPA, universitas = un.Name
                     } ;
                 return data;
             }
@@ -116,7 +116,7 @@ namespace API.Repository.Data
                             em.PhoneNumber,
                             ed.Degree,
                             ed.GPA,
-                            un.Name
+                            universitas = un.Name
                         }).ToList();
             return data;
         }
