@@ -48,8 +48,8 @@ namespace API.Controllers
                         //new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
                         //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         //new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("Email", email.Email),
-                        new Claim("Role", find.Name)
+                        new Claim("email", email.Email),
+                        new Claim("role", find.Name)
                     };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
