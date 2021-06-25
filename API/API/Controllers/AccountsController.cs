@@ -24,6 +24,7 @@ namespace API.Controllers
             this.accountRepository = repository;
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public ActionResult Login(LoginVM loginVM)
         {
@@ -55,6 +56,7 @@ namespace API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("Reset")]
         public ActionResult Reset(ResetPasswordVM resetPasswordVM)
         {
@@ -74,6 +76,7 @@ namespace API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("Change")]
         public ActionResult Change(ChangePasswordVM changePasswordVM)
         {
