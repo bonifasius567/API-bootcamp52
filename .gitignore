@@ -1,6 +1,3 @@
-
-*.dll
 API/.vs/API/v16/.suo
-*.cache
-*.pdb
-*.dll
+API/API/bin
+API/API/obj

@@ -32,6 +32,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddDbContext<MyContext>(option => option.UseSqlServer(Configuration.GetConnectionString("APIContext")));
 
             services.AddControllersWithViews()
@@ -60,7 +61,10 @@ namespace API
             services.AddScoped<RoleRepository>();
             services.AddScoped<UniversityRepository>();
 
-
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44320"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +78,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(options => options.WithOrigins("https://localhost:44320"));
 
             app.UseAuthentication();
 
