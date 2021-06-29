@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 namespace API.Controllers
 {
     //[Authorize]
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class EmployeesController : BaseController<Employee, EmployeeRepository, string>
     {
         private readonly EmployeeRepository employeeRepository;

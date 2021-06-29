@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Client.Controllers
 {
-    public class HomeController : Controller
+    public class TestingController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<TestingController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public TestingController(ILogger<TestingController> logger)
         {
             _logger = logger;
         }
