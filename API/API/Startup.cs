@@ -79,7 +79,7 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(options => options.WithOrigins("https://localhost:44320"));
+            app.UseCors("AllowOrigin");
 
             app.UseAuthentication();
 
