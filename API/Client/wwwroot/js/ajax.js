@@ -11,7 +11,7 @@
                 <td>${val.url}</td>
                 <td>
                     <button type="button" value= "${val.url}" onclick='fillData(this.value)' class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        action
+                        Detail
                     </button>
                 </td>`;
     });
