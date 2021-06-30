@@ -23,7 +23,7 @@ namespace Client.Controllers
             return View();
         }
         
-        public IActionResult Testing()
+        public IActionResult Ajax()
         {
             return View();
         }

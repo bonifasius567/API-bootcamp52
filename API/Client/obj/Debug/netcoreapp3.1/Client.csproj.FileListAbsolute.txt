@@ -38,3 +38,4 @@ C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\Client\obj\Debug\netcore
 C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Home\Testing.cshtml.g.cs
 C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_TestingLayout.cshtml.g.cs
 C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Testing\Index.cshtml.g.cs
+C:\Users\Bonifasius\Documents\GitHub\API-bootcamp52\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Testing\Ajax.cshtml.g.cs

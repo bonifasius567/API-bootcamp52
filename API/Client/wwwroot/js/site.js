@@ -12,18 +12,21 @@ const animals = [
     { name: "Ursa", species: "cat", class: { name: "mamalia" } },
     { name: "Taro", species: "cat", class: { name: "vertebrata" } }
 ];
+
+//Menampilkan animal yang species cat
 for (let i = 0; i < animals.length; i++) {
     if (animals[i].species == 'cat') {
         console.log(animals[i]);
     }
 }
 
-for (let i = 0; i < animals.length; i++) {
-    if (animals[i].class.name == 'mamalia') {
-        animals[i].class.name = "Mamalia";
-        console.log(animals[i]);
+//manipulasi string utk object kelas, jika mamalia (tulis Mamalia), jika bukan mamalia (tulis Non-Mamalia)
+for (let k = 0; k < animals.length; k++) {
+    if (animals[k].class.name == 'mamalia') {
+        animals[k].class.name = "Mamalia";
+        console.log(animals[k]);
     } else {
-        animals[i].class.name = "Non-Mamalia";
-        console.log(animals[i]);
+        animals[k].class.name = "Non-Mamalia";
+        console.log(animals[k]);
     }
 }
