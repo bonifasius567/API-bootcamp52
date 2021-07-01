@@ -10,7 +10,8 @@
                 <td>${val.name}</td>
                 <td>${val.url}</td>
                 <td>
-                    <button type="button" value= "${val.url}" onclick='fillData(this.value)' class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" value= "${val.url}"
+                        onclick='fillData(this.value)' class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Detail
                     </button>
                 </td>`;
@@ -30,11 +31,11 @@ let fillData = (val) => {
         });
         text = `<div class="container"><div class="text-center"><img src="${result.sprites.front_shiny}" alt="" /></div>
             <div class="row">
-                <div class="col">Nama</div>
+                <div class="col">Name</div>
                 <div class="col">${result.name}</div>
             </div>
             <div class="row">
-                <div class="col">Ability</div>
+                <div class="col">Abilities</div>
                 <div class="col">${cekAbility}</div>
             </div>
             <div class="row">
