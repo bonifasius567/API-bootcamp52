@@ -45,7 +45,7 @@ namespace API.Repository.Data
                     account.Password = Hashing.HashPassword(registerVM.Password);
 
                     var edu = myContext.Educations.FirstOrDefault
-                        (b => b.Degree == registerVM.Degree && b.GPA == registerVM.GPA && b.UniversityId == registerVM.UniversityId);
+                        (b => b.Degree == registerVM.Degree /*&& b.GPA == registerVM.GPA*/ && b.UniversityId == registerVM.UniversityId);
                     int eduid = edu.Id;
 
                     profiling.NIK = registerVM.NIK;

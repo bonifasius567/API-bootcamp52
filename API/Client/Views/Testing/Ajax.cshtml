@@ -3,35 +3,123 @@
     Layout = "_TestingLayout";
 }
 
-<h1>Pokemon</h1>
-<table class="table">
+<h1>Employee</h1>
+<button class="btn btn-primary mb-2 " type="button" data-toggle="modal" data-target=".bd-example-modal-lg">New Registrasi</button>
+<table class="table" id="ajaxSW">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">Nomor</th>
+            <th scope="col">NIK</th>
             <th scope="col">Name</th>
-            <th scope="col">URL</th>
+            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Degree</th>
+            <th scope="col">Gpa</th>
+            <th scope="col">University</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
-    <tbody id="ajaxSW">
+    <tbody>
     </tbody>
 </table>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+@*=================================modal registrasi===========================*@
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Card</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Registrasi Employee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="detailModal">
+            <div class="modal-body">
+                <form id="formReg">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label class="col-form-label">NIK:</label>
+                                <input type="text" class="form-control form-control-sm" id="nik" required />
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Password:</label>
+                                <input type="password"pattern=".{8,}" title="Must contain at least 8 or more characters" class="form-control form-control-sm" id="password" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label class="col-form-label">First Name:</label>
+                                <input type="text" class="form-control form-control-sm" id="firstName" required />
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Last Name:</label>
+                                <input type="text" class="form-control form-control-sm" id="lastName" required />
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <div>
+                            <label class="col-form-label">Gender:</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="0" required />
+                            <label class="form-check-label">Pria</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="1">
+                            <label class="form-check-label">Wanita</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col">
+                                <label class="col-form-label">Birth Date:</label>
+                                <input type="date" class="form-control form-control-sm" id="birthDate" required />
+                            </div>
+
+                            <div class="col">
+                                <label class="col-form-label">Phone Number:</label>
+                                <input type="number" class="form-control form-control-sm" id="phoneNumber" required />
+                            </div>
+
+                            <div class="col">
+                                <label class="col-form-label">Email:</label>
+                                <input type="email" class="form-control form-control-sm" id="email" required />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label">Salary:</label>
+                        <input type="number" class="form-control form-control-sm" id="salary" required />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label class="col-form-label">University:</label>
+                                <select class="form-control form-control-sm" id="univ" required>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Degree</label>
+                                <select class="form-control form-control-sm" id="educt" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" onclick="Insert()" class="btn btn-primary float-right" >Register</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
-@section Scripts{ 
-    <script type="text/javascript" src="~/js/ajax.js"></script>
-}

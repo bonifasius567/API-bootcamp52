@@ -65,7 +65,7 @@ namespace API.Controllers
                 var insert = employeeRepository.ViewRegistrasi(nik);
                 if (insert != null)
                 {
-                    return Ok(new { status = HttpStatusCode.OK, result = insert, message = "Data Registrsi Ditemukan" });
+                    return Ok(insert);
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace API.Controllers
                 var view = employeeRepository.ViewRegistrasi();
                 if (view != null)
                 {
-                    return Ok(new { status = HttpStatusCode.OK, result = view, message = "Data Registrsi Ditemukan" });
+                    return Ok(view);
                 }
                 else
                 {

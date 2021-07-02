@@ -63,7 +63,8 @@ namespace API
 
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44320"));
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44320").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+
             });
         }
 
