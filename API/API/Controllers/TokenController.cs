@@ -33,6 +33,7 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult Post(LoginVM loginVM)
         {
+
             var alternatif = myContext.Accounts.Find(loginVM.NIK);
             if (alternatif != null)
             {
@@ -55,7 +56,7 @@ namespace API.Controllers
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                     var token = new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
                     var show = new JwtSecurityTokenHandler().WriteToken(token);
-                    return Ok(new {status = HttpStatusCode.OK ,nik = user.NIK, token = show});
+                    return Ok(new JWTokenVM { Status = HttpStatusCode.OK, Token = show, Message = "Login Berhasil" });
                 }
                 else
                 {
@@ -64,7 +65,31 @@ namespace API.Controllers
             }
             else
             {
-                return BadRequest();
+                var cekEmail = myContext.Employees.FirstOrDefault(a => a.Email == loginVM.NIK);
+                var account = myContext.Accounts.Find(cekEmail.NIK);
+                if (account != null && Hashing.ValidatePassword(loginVM.Password, account.Password))
+                {
+                    var email = myContext.Employees.Find(account.NIK);
+                    var role = myContext.AccountRoles.FirstOrDefault(a => a.AccountId == account.NIK);
+                    var find = myContext.Roles.FirstOrDefault(a => a.Id == role.RoleID);
+                    var claims = new[]
+                    {
+                        //new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
+                        //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        //new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim("email", email.Email),
+                        new Claim("role", find.Name)
+                    };
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var token = new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
+                    var show = new JwtSecurityTokenHandler().WriteToken(token);
+                    return Ok(new JWTokenVM{ Status = HttpStatusCode.OK, Token = show, Message = "Login Berhasil" });
+                }
+                else
+                {
+                    return BadRequest("Invalid credentials");
+                }
             }
         }
     }

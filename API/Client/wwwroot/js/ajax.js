@@ -1,4 +1,10 @@
-﻿$.extend($.fn.dataTable.defaults, {
+﻿donat();
+countUniv();
+//=============================================================================================
+//=================================Show employee data table====================================
+//=============================================================================================
+
+$.extend($.fn.dataTable.defaults, {
     responsive: true
 });
 
@@ -53,16 +59,20 @@ var table = $('#ajaxSW').DataTable({
         { data: 'gpa' },
         { data: 'universitas' },
         {
-            data: null,
+            data: 'nik',
             targets: 'no-sort', orderable: false,
             render: function (data, type, row) {
-                return "<button  class=\"btn btn-primary\" >Edit</button>";
+                return `<button value="${data}" class="btn btn-primary" >Edit</button> &nbsp
+                        <button value="${data}" onclick="delEmployee(this.value)" class="btn btn-danger">Delete</button> `;
             }
         }
     ]
 });
 
-/*Menampilkan universitas*/
+//=============================================================================================
+//=================================add option university=======================================
+//=============================================================================================
+
 $.ajax({
     url: "https://localhost:44371/api/universities"
 }).done((result) => {
@@ -76,7 +86,10 @@ $.ajax({
     console.log(error);
 });
 
-/*menampilkan degree dari education*/
+//=============================================================================================
+//=================================add option degree===========================================
+//=============================================================================================
+
 $('#univ').change(function () {
     let univ = $(this).val();
     $.ajax({
@@ -94,7 +107,10 @@ $('#univ').change(function () {
     });
 });
 
-/*Melakukan insert registrasi*/
+//=============================================================================================
+//=================================insert new registration=====================================
+//=============================================================================================
+
 function Insert() {
     var obj = new Object();
     obj.NIK = $("#nik").val();
@@ -120,10 +136,11 @@ function Insert() {
             icon: 'success',
             title: result.message,
         });
-        $('#regisModal').modal('toggle');
+        table.ajax.reload(null, false);
+        donat();
         $('body').removeClass('modal-open');
+        $('#regisModal').modal('hide');
         $('.modal-backdrop').remove();
-        table.ajax.reload();
     }).fail((error) => {
         Swal.fire({
             icon: 'error',
@@ -131,8 +148,11 @@ function Insert() {
             text: error.responseJSON.message,
         });
     })
-
 }
+
+//=============================================================================================
+//=================================Add Validasi bootstrap======================================
+//=============================================================================================
 
 window.addEventListener('load', () => {
     var forms = document.getElementsByClassName('needs-validation');
@@ -150,77 +170,136 @@ window.addEventListener('load', () => {
     }
 });
 
-let pria = countGender(0) ;
-let wanita = countGender(1);
 
-var options = {
-    chart: {
-        type: 'donut',
-        height: '400px'
-    },
-    dataLabels: {
-        enabled: false
-    },
-    series: [pria, wanita],
-    labels: ['pria','wanita'],
-    noData: {
-        text: 'Loading...'
-    }
+//=============================================================================================
+//=================================show  donutChart for Gender=================================
+//=============================================================================================
+
+function donat() {
+    pria = 0;
+    wanita = 0;
+    $.ajax({
+        url: '/employee/GetRegistrasiView/',
+        success: function (result) {
+            $.each(result, function (key, val) {
+                if (val.gender == 0) {
+                    pria++;
+                }
+                else {
+                    wanita++;
+                }
+            });
+            var options = {
+                chart: {
+                    type: 'donut',
+                    height: 312
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                series: [pria, wanita],
+                labels: ['pria', 'wanita'],
+                noData: {
+                    text: 'Loading...'
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+            chart.render();
+        },
+        async: false
+    })
 }
 
-var chart = new ApexCharts(document.querySelector("#chart"), options);
+//=============================================================================================
+//=================================show  barchart for university===============================
+//=============================================================================================
 
-chart.render();
-
-function countGender(gender) {
-    let count = 0;
+function countUniv() {
+    let uniA = null;
+    let uniB = null;
+    let uniC = null;
     jQuery.ajax({
         url: '/employee/GetRegistrasiView/',
         success: function (result) {
             $.each(result, function (key, val) {
-                if (val.gender === gender) {
-                    ++count;
+                if (val.universitas == "Universitas A") {
+                    uniA++;
+                } else if (val.universitas == "Universitas B") {
+                    uniB++;
+                } else {
+                    uniC++;
                 }
             });
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 300
+                },
+                series: [{
+                    name: 'employee',
+                    data: [uniA, uniB, uniC]
+                }],
+                xaxis: {
+                    categories: ["Universitas A", "Universitas B", "Universitas C"]
+                }
+            }
+            var barChart = new ApexCharts(document.querySelector("#barChart"), options);
+            barChart.render();
         },
         async: false
     });
-    return count;
 }
 
+//=============================================================================================
+//=================================delete any registration=====================================
+//=============================================================================================
 
-let uniA = countUniv("Universitas A");
-let uniB = countUniv("Universitas B");
-let uniC = countUniv("Universitas C");
+function delEmployee(del) {
+    $.ajax({
+        url: "https://localhost:44371/API/AccountRoles"
+    }).done((result) => {
+        $.each(result.result, function (key, val) {
+            console.log(del);
+            if (val.accountId == del) {
+                console.log(val.accountId);
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "https://localhost:44371/API/AccountRoles?key=" + val.id,
+                            type: 'delete'
+                        });
+                        $.ajax({
+                            url: "https://localhost:44371/API/Employees?Key=" + del,
+                            type: 'delete'
+                        }).done((result) => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted.',
+                                text: result.message,
+                            });
+                            table.ajax.reload();
+                        }).fail((error) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed',
+                                text: error.responseJSON.message,
+                            });
+                        })
+                    }
+                })
+            }
+        });
+    })
 
-var options = {
-    chart: {
-        type: 'bar',
-        height: '253px'
-    },
-    series: [{
-        name: 'employee',
-        data: [uniA, uniB, uniC]
-    }],
-    xaxis: {
-        categories: ["Universitas A", "Universitas B", "Universitas C"]
-    }
 }
-var barChart = new ApexCharts(document.querySelector("#barChart"), options);
-barChart.render();
 
-function countUniv(univ) {
-    let count = 0;
-    jQuery.ajax({
-        url: '/employee/GetRegistrasiView/',
-        success: function (result) {
-            $.each(result, function (key, val) {
-                if (val.universitas === univ) {
-                    ++count;
-                }
-            });
-        },
-        async: false
-    });
-    return count;
-}

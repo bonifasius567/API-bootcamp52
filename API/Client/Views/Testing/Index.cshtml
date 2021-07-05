@@ -3,8 +3,187 @@
     Layout = "_TestingLayout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Employee</h1>
+<button class="btn btn-primary mb-2 " type="button" data-toggle="modal" data-target=".bd-example-modal-lg">New Registrasi</button>
+<div>
+    <table id="ajaxSW" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">NIK</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Degree</th>
+                <th scope="col">Gpa</th>
+                <th scope="col">University</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>
-  
+
+<div class="row mt-4">
+    <!-- Pie Chart -->
+    <div class="col-xl-6">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Gender</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div id="chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Top University</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div id="barChart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*=================================modal registrasi===========================*@
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="regisModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Registrasi Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="needs-validation" novalidate>
+
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="nik">NIK</label>
+                            <input type="text" class="form-control" id="nik" required>
+                            <div class="invalid-feedback">
+                                Please choose a NIK.
+                            </div>
+                        </div>
+
+                        <div class="col-md mb-3">
+                            <label for="firstName">First name</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                            <div class="invalid-feedback">
+                                Please choose a First Name.
+                            </div>
+                        </div>
+
+                        <div class="col-md mb-3">
+                            <label for="lastName">Last name</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                            <div class="invalid-feedback">
+                                Please choose a Last Name.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="gender">Gender</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="gender" name="gender" value="0" required>
+                                <label class="custom-control-label" for="gender">Pria</label>
+                            </div>
+                            <div class="custom-control custom-radio mb-3">
+                                <input type="radio" class="custom-control-input" id="gender1" name="gender" value="1" required>
+                                <label class="custom-control-label" for="gender1">Wanita</label>
+                                <div class="invalid-feedback">Please choose gender.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md mb-3">
+                            <label for="birthDate">Birth Date</label>
+                            <input type="date" class="form-control" id="birthDate" required>
+                            <div class="invalid-feedback">
+                                Please choose Birth Date.
+                            </div>
+                        </div>
+
+                        <div class="col-md mb-3">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="number" class="form-control" id="phoneNumber" required>
+                            <div class="invalid-feedback">
+                                Please provide a Phone Number.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                            <div class="invalid-feedback">
+                                Please input your Email.
+                            </div>
+                        </div>
+
+                        <div class="col-md mb-3">
+                            <label for="password">Password</label>
+                            <input type="password" pattern=".{8,}" class="form-control" id="password" required>
+                            <div class="invalid-feedback">
+                                Please input your password minimal 8 character.
+                            </div>
+                        </div>
+
+                        <div class="col-md mb-3">
+                            <label for="salary">Salary</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">Rp</span>
+                                </div>
+                                <input type="number" class="form-control" id="salary" aria-describedby="inputGroupPrepend" required>
+                                <div class="invalid-feedback">
+                                    Please input your salary.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="univ">University</label>
+                            <select class="custom-select" id="univ" required>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid University.
+                            </div>
+                        </div>
+
+                        <div class="col-md mb-3">
+                            <label for="educt">Degree</label>
+                            <select class="custom-select" id="educt" required>
+                                <option selected disabled value="">Choose...</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid Degree.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

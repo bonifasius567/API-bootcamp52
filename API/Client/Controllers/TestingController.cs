@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,16 +20,6 @@ namespace Client.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-        
-        public IActionResult Ajax()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }
